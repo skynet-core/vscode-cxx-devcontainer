@@ -1,0 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ubuntu
+{
+	"name": "Ferdora",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"dockerComposeFile": "./../docker-compose.yml",
+	"service": "runtime",
+	"workspaceFolder": "/workspaces/project",
+	"shutdownAction": "stopCompose",
+	"privileged": true,
+	"customizations": {
+		"vscode": {
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"llvm-vs-code-extensions.vscode-clangd",
+				"ms-vscode.cpptools",
+				"ms-vscode.cmake-tools",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"cheshirekow.cmake-format",
+				"ms-azuretools.vscode-docker"
+			],
+			"settings": {
+				"C_Cpp.intelliSenseEngine": "disabled",
+				"C_Cpp.default.intelliSenseMode": "clang-x64",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/usr/bin/zsh"
+					}
+				},
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"C_Cpp.inlayHints.autoDeclarationTypes.enabled": true,
+				"cmake.cmakePath": "/home/linuxbrew/.linuxbrew/bin/cmake",
+				"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+				"C_Cpp.default.cppStandard": "c++23"
+			}
+		}
+	}
+}

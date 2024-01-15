@@ -1,0 +1,31 @@
+services:
+  runtime:
+    build:
+      context: .
+      args:
+        USERNAME: 'vscode'
+        USER_UID: ${USER_UID:-1000}
+        USER_GID: ${USER_GID:-1000}
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./:/workspaces/project:rw
+      - ./.vscode/.zshrc:/home/vscode/.zshrc:rw
+      - ./.cache/starship:/home/vscode/.cache/starship:rw
+      - ./.cache/ccache:/home/vscode/.cache/ccache:rw
+      - ./.cache/vcpkg/downloads:/home/vscode/.cache/vcpkg/downloads:rw
+      - ./.cache/vcpkg/archives:/home/vscode/.cache/vcpkg/archives:rw
+      - ${HOME}${USERPROFILE}/.ssh:/home/vscode/.ssh:rw
+      - ${HOME}${USERPROFILE}/.gitconfig:/home/vscode/.gitconfig:rw
+    networks:
+      - default
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+networks:
+  default: {}
+
+volumes:
+  vcpkg: {}

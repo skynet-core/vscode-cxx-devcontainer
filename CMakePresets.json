@@ -1,0 +1,147 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 28,
+        "patch": 0
+    },
+    "include": [],
+    "configurePresets": [
+        {
+            "name": "windows-vc-base",
+            "displayName": "Windows VC Config",
+            "description": "Windows VC using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": {
+                    "type": "PATH",
+                    "value": "cl.exe"
+                },
+                "CMAKE_CXX_COMPILER": {
+                    "type": "PATH",
+                    "value": "cl.exe"
+                },
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "type": "PATH",
+                    "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                }
+            }
+        },
+        {
+            "name": "clang-base",
+            "displayName": "Clang Config",
+            "description": "Clang using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": {
+                    "type": "PATH",
+                    "value": "/usr/bin/clang"
+                },
+                "CMAKE_CXX_COMPILER": {
+                    "type": "PATH",
+                    "value": "/usr/bin/clang++"
+                },
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "type": "PATH",
+                    "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                },
+                "CMAKE_CXX_COMPILER_LAUNCHER": {
+                    "type": "string",
+                    "value": "ccache"
+                }
+            }
+        },
+        {
+            "name": "gcc-base",
+            "displayName": "GCC Config",
+            "description": "GCC using Ninja generator",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": {
+                    "type": "PATH",
+                    "value": "/usr/bin/gcc"
+                },
+                "CMAKE_CXX_COMPILER": {
+                    "type": "PATH",
+                    "value": "/usr/bin/g++"
+                },
+                "CMAKE_TOOLCHAIN_FILE": {
+                    "type": "PATH",
+                    "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
+                },
+                "CMAKE_CXX_COMPILER_LAUNCHER": {
+                    "type": "string",
+                    "value": "ccache"
+                }
+            }
+        },
+        {
+            "name": "windows-vc-debug",
+            "inherits": "windows-vc-base",
+            "displayName": "Windows VC Debug configuration",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "clang-debug",
+            "inherits": "clang-base",
+            "displayName": "Clang Debug configuration",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            },
+            "condition": {
+                "type": "notEquals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "gcc-debug",
+            "inherits": "gcc-base",
+            "displayName": "GCC Debug configuration",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": {
+                    "type": "STRING",
+                    "value": "Debug"
+                }
+            },
+            "condition": {
+                "type": "notEquals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "windows-vc-debug",
+            "configurePreset": "windows-vc-debug"
+        },
+        {
+            "name": "clang-debug",
+            "configurePreset": "clang-debug"
+        },
+        {
+            "name": "gcc-debug",
+            "configurePreset": "gcc-debug"
+        }
+    ]
+}
