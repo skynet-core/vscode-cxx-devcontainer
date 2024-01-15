@@ -39,11 +39,11 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": {
                     "type": "PATH",
-                    "value": "/usr/bin/clang"
+                    "value": "clang"
                 },
                 "CMAKE_CXX_COMPILER": {
                     "type": "PATH",
-                    "value": "/usr/bin/clang++"
+                    "value": "clang++"
                 },
                 "CMAKE_TOOLCHAIN_FILE": {
                     "type": "PATH",
@@ -65,11 +65,11 @@
             "cacheVariables": {
                 "CMAKE_C_COMPILER": {
                     "type": "PATH",
-                    "value": "/usr/bin/gcc"
+                    "value": "gcc"
                 },
                 "CMAKE_CXX_COMPILER": {
                     "type": "PATH",
-                    "value": "/usr/bin/g++"
+                    "value": "g++"
                 },
                 "CMAKE_TOOLCHAIN_FILE": {
                     "type": "PATH",

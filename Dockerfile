@@ -14,9 +14,12 @@ RUN dnf upgrade -y \
   libcxx-devel \
   libcxxabi-devel \
   llvm-libunwind-devel \
+  llvm-cmake-utils \
   clang-tools-extra \
   glibc-all-langpacks \
   llvm \
+  llvm-libs \
+  compiler-rt \
   zsh \
   python \
   patch \

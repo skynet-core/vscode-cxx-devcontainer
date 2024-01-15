@@ -8,23 +8,23 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_SCAN_FOR_MODULES ON)
-set(SANITIZER_NAME "address")
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
   if(MSVC)
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
-  endif()
-
-  if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_C_COMPILER_ID STREQUAL
-                                               "Clang")
-    message(NOTICE "Using Clang compiler")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -gdwarf-3 -fno-omit-frame-pointer")
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -O0 -gdwarf-3 -fno-omit-frame-pointer")
-    set(CMAKE_EXE_LINKER_FLAGS
-        "${CMAKE_EXE_LINKER_FLAGS} -g -O0 -gdwarf-3 -fno-omit-frame-pointer")
+  else()
+    include(LlvmSanitizers)
+    add_sanitizer("address")
+    add_sanitizer("leak")
+    add_sanitizer("undefined")
+    # add_sanitizer("thread")
   endif()
 
 endif()
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 
 add_executable(app)
 file(GLOB CPP_SRC "src/*.cpp")
@@ -52,3 +52,6 @@ if(result)
 else()
   message(NOTICE "LTO is not supported")
 endif()
+
+add_subdirectory(tests)
+add_subdirectory(benchmarks)

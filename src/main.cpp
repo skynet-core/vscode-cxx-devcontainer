@@ -1,7 +1,6 @@
-import hello;
+import core;
 
 int main(int argc, char *argv[])
 {
-    hello_world();
-    return 0;
+    return run(argc, argv);
 }
